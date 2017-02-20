@@ -53,7 +53,7 @@ public class Robot extends IterativeRobot {
      */
 	public void robotInit() {
 		Robot.drive.centerX = 0;
-		RobotUtils.lengthOfRobot(38);
+		RobotUtils.lengthOfRobot(34);
 		RobotUtils.setWheelDiameter(4);
 
 		oi.gyro = new ADXRS450_Gyro();
@@ -70,9 +70,9 @@ public class Robot extends IterativeRobot {
 		// finding a different number of targets than the computer would find attached to the 
 		// same camera in the grip application.
 
-//		cameraCommand= new CameraCommand(); 
-//		UsbCamera camera = cameraCommand.getcamera();
-		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+		cameraCommand = new CameraCommand(); 
+		UsbCamera camera = cameraCommand.getcamera();
+//		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		System.out.println("Camera name: " + camera.getName());
 		camera.setResolution((int)Robot.oi.IMG_WIDTH, (int)Robot.oi.IMG_HEIGHT);
 
@@ -179,7 +179,7 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 		if (autonomousCommand != null) autonomousCommand.cancel();
 		Robot.drive.setForVBus();
-//		cameraCommand.start();	
+		cameraCommand.start();	
 	}
 
 	public void teleopPeriodic() {

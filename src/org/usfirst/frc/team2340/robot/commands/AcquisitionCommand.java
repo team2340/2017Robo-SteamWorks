@@ -9,8 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class AcquisitionCommand extends Command {
 	private Joystick controller;
-	private boolean buttonPressed, on;
-	
+	private boolean button2Pressed, button6Pressed, on;
 	public AcquisitionCommand(Subsystem _subsystem){
 		requires(_subsystem);
 	}
@@ -18,7 +17,7 @@ public class AcquisitionCommand extends Command {
 	@Override
 	protected void initialize() {
 		controller = Robot.oi.acquisitionController;
-		buttonPressed = false;
+		button6Pressed = button2Pressed = false;
 		Robot.oi.ballAq.set(-1);
 		on = true;
 	}
@@ -26,15 +25,15 @@ public class AcquisitionCommand extends Command {
 	@Override
 	protected void execute() {
 		if (controller.getRawButton(RobotMap.BUTTON_2)){
-			if(!buttonPressed)
+			if(!button2Pressed)
 			{
 				toggleAq();
-				buttonPressed = true;
+				button2Pressed = true;
 			}
 		}
 		else
 		{
-			buttonPressed = false;
+			button2Pressed = false;
 		}
 		
 		if (controller.getTrigger()){
@@ -50,6 +49,24 @@ public class AcquisitionCommand extends Command {
 		else{
 			Robot.oi.climbing.set(0);
 		}
+		if(controller.getRawButton(RobotMap.BUTTON_6)){
+			if(!button6Pressed)
+			{
+				if(on){
+					Robot.oi.ballAq.set(0);
+					on =false;
+				}
+				if(!on){
+					Robot.oi.ballAq.set(1);
+					on= true;
+				}
+				button6Pressed = true;
+			}
+		}
+		else
+		{
+			button6Pressed = false;
+		}
 	}
 	
 	private void toggleAq() {
@@ -62,7 +79,7 @@ public class AcquisitionCommand extends Command {
 			on = false;
 		}
 	}
-
+	
 	@Override
 	protected boolean isFinished() {
 		return false;
