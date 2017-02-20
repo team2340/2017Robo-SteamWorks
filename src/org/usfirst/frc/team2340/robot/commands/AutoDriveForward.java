@@ -49,7 +49,7 @@ public class AutoDriveForward extends Command {
 		}
 		if(rotationComplete && !inMotion){
 			Robot.drive.setForPosition();
-			desiredSpot = RobotUtils.getEncPositionFromIN(Robot.drive.finalDistance- 0);
+			desiredSpot = RobotUtils.getEncPositionFromIN(Robot.drive.finalDistance);
 			Robot.oi.left.set(desiredSpot);
 			Robot.oi.right.set(-desiredSpot);
 			inMotion = true;

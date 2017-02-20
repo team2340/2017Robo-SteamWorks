@@ -11,43 +11,45 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class AcquisitionSubsystem extends Subsystem {
 	static private AcquisitionSubsystem subsystem;
 	
+	public static AcquisitionSubsystem getInstance() {
+    if (subsystem == null) {
+      subsystem = new AcquisitionSubsystem();
+    }
+    return subsystem;
+  }
+	
 	private AcquisitionSubsystem() {
 		try {
 			Robot.oi.ballAq = new CANTalon(RobotMap.BALL_AQ_TAL_ID);
+			Robot.oi.ballFeeder.reverseOutput(true);
 		} catch (Exception ex) {
-			System.out.println(" createTalon FAILED");
+			System.out.println("ball acquisition Talon FAILED");
 		}
 		
 		try {
 			Robot.oi.ballShooter = new CANTalon(RobotMap.BALL_SHOOTER_TAL_ID);
 		} catch (Exception ex) {
-			System.out.println(" createTalon FAILED");
+			System.out.println("ball shooter Talon FAILED");
 		}
 		
 		try {
 			Robot.oi.ballFeeder = new CANTalon(RobotMap.BALL_FEEDER_TAL_ID);
 			Robot.oi.ballFeeder.changeControlMode(CANTalon.TalonControlMode.Follower);
+			Robot.oi.ballFeeder.reverseOutput(true);
 		} catch (Exception ex) {
-			System.out.println(" createTalon FAILED");
+			System.out.println("ball feeder Talon FAILED");
 		}
 		
 		try {
 			Robot.oi.climbing = new CANTalon(RobotMap.CLIMBING_TAL_ID);
 			Robot.oi.climbing.enableBrakeMode(true);
 		} catch (Exception ex) {
-			System.out.println(" createTalon FAILED");
+			System.out.println("climbing Talon FAILED");
 		}
-	}
-
-	public static AcquisitionSubsystem getInstance() {
-		if (subsystem == null) {
-			subsystem = new AcquisitionSubsystem();
-		}
-		return subsystem;
 	}
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new AcquisitionCommand(this));
+		setDefaultCommand(new AcquisitionCommand());
 	}
 }

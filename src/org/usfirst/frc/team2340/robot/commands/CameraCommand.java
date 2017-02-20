@@ -16,19 +16,23 @@ public class CameraCommand extends Command {
 	boolean buttonPressed = false;
 	VideoSink server;
 	
+	//Get Name from lsusb
+	//ssh in /dev/vid
+	//v4l-utils package
 	public CameraCommand(){
 		controller = Robot.oi.driveController;
 
 		int intcam0 = 0;
 		int intcam1 = 1;
 		
-		camera0 = new UsbCamera("USB Camera " + intcam0, intcam0);    
-	    CameraServer.getInstance().addCamera(camera0);
-	    server = CameraServer.getInstance().addServer("serve_" + camera0.getName());
-	    server.setSource(camera0);
-	    
-	    camera1 = new UsbCamera("USB Camera " + intcam1, intcam1);    
-	    CameraServer.getInstance().addCamera(camera1);
+		camera0 = new UsbCamera("USB Camera " + intcam0, intcam0);
+		camera1 = new UsbCamera("USB Camera " + intcam1, intcam1);
+
+		CameraServer.getInstance().addCamera(camera0);
+		server = CameraServer.getInstance().addServer("serve_" + camera0.getName());
+		server.setSource(camera0);
+
+		CameraServer.getInstance().addCamera(camera1);
 
 		curCam = camera0;
 		SmartDashboard.putString("Current Cam", curCam.getName());
@@ -65,9 +69,9 @@ public class CameraCommand extends Command {
 
 	@Override
 	protected void interrupted() {
-	
 	}
-	public UsbCamera getcamera(){
+	
+	public UsbCamera getCamera(){
 		return curCam;
 	}
 	

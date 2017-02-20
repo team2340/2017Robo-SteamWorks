@@ -11,8 +11,8 @@ public class AcquisitionCommand extends Command {
 	private Joystick controller;
 	private boolean buttonPressed, on;
 	
-	public AcquisitionCommand(Subsystem _subsystem){
-		requires(_subsystem);
+	public AcquisitionCommand(){
+		requires(Robot.acquisition);
 	}
 	
 	@Override

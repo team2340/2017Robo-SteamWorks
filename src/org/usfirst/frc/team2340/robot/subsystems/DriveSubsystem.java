@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class DriveSubsystem extends Subsystem {
 
 	static private DriveSubsystem subsystem;
+	
 	RobotDrive robotDrive;
+	
 	public double centerX;
 	public double finalDistance;
 	public double speedP = 7.0;
@@ -82,41 +84,40 @@ public class DriveSubsystem extends Subsystem {
 		Robot.oi.left.changeControlMode(CANTalon.TalonControlMode.Speed);
 		Robot.oi.right.changeControlMode(CANTalon.TalonControlMode.Speed);
 		Robot.oi.right.setF(speedF);
-	    Robot.oi.right.setP(speedP);
-	    Robot.oi.right.setI(speedI); 
-	    Robot.oi.right.setD(speedD);
-	    Robot.oi.left.setF(speedF);
-	    Robot.oi.left.setP(speedP);  
-	    Robot.oi.left.setI(speedI);  
-	    Robot.oi.left.setD(speedD);
-	    robotDrive.setMaxOutput (speedMaxOutput);
-	    Robot.oi.left.configPeakOutputVoltage(speedPeakOutputVoltage, -speedPeakOutputVoltage);
-	    Robot.oi.right.configPeakOutputVoltage(speedPeakOutputVoltage, -speedPeakOutputVoltage);	
+		Robot.oi.right.setP(speedP);
+		Robot.oi.right.setI(speedI); 
+		Robot.oi.right.setD(speedD);
+		Robot.oi.left.setF(speedF);
+		Robot.oi.left.setP(speedP);  
+		Robot.oi.left.setI(speedI);  
+		Robot.oi.left.setD(speedD);
+		robotDrive.setMaxOutput (speedMaxOutput);
+		Robot.oi.left.configPeakOutputVoltage(speedPeakOutputVoltage, -speedPeakOutputVoltage);
+		Robot.oi.right.configPeakOutputVoltage(speedPeakOutputVoltage, -speedPeakOutputVoltage);	
 	}
 	
 	public void setForPosition() {
 		Robot.oi.left.changeControlMode(CANTalon.TalonControlMode.Position);
 		Robot.oi.right.changeControlMode(CANTalon.TalonControlMode.Position);
 		Robot.oi.right.setF(positionF);
-	    Robot.oi.right.setP(positionP);
-	    Robot.oi.right.setI(positionI); 
-	    Robot.oi.right.setD(positionD);
-	    Robot.oi.left.setF(positionF);
-	    Robot.oi.left.setP(positionP);  
-	    Robot.oi.left.setI(positionI);  
-	    Robot.oi.left.setD(positionD);   
-	    Robot.oi.left.configPeakOutputVoltage(positionPeakOutputVoltage, -positionPeakOutputVoltage);
-	    Robot.oi.right.configPeakOutputVoltage(positionPeakOutputVoltage, -positionPeakOutputVoltage);
-	    Robot.oi.right.setPosition(0);
-	    Robot.oi.left.setPosition(0);
-	    
+		Robot.oi.right.setP(positionP);
+		Robot.oi.right.setI(positionI); 
+		Robot.oi.right.setD(positionD);
+		Robot.oi.left.setF(positionF);
+		Robot.oi.left.setP(positionP);  
+		Robot.oi.left.setI(positionI);  
+		Robot.oi.left.setD(positionD);   
+		Robot.oi.left.configPeakOutputVoltage(positionPeakOutputVoltage, -positionPeakOutputVoltage);
+		Robot.oi.right.configPeakOutputVoltage(positionPeakOutputVoltage, -positionPeakOutputVoltage);
+		Robot.oi.right.setPosition(0);
+		Robot.oi.left.setPosition(0);
 	}
 	
 	public void setForVBus() {
-		Robot.oi.left.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-        Robot.oi.right.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-        robotDrive.setMaxOutput (vBusMaxOutput);
-		setArcadeSpeed(0,0);
+	  Robot.oi.left.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+	  Robot.oi.right.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+	  robotDrive.setMaxOutput (vBusMaxOutput);
+	  setArcadeSpeed(0,0);
 	}
 	
 	public void setBrakeMode(boolean brake) {
@@ -124,7 +125,7 @@ public class DriveSubsystem extends Subsystem {
 		Robot.oi.left.enableBrakeMode(brake);
 	}
 	
-	public void setArcadeSpeed(double x, double y){
-		robotDrive.arcadeDrive(y, x);
+	public void setArcadeSpeed(double rotation, double move){
+		robotDrive.arcadeDrive(move, rotation);
 	}
 }

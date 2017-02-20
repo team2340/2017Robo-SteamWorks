@@ -11,10 +11,13 @@ public class RobotUtils {
 	}
 	
 	public enum AutonomousState {
+	  None,
 		DriveForward,
 		Rotate,
+		DriveForward2,
 		CameraAssistRotate,
-		CameraAssistDriveForward
+		CameraAssistDriveForward,
+		Done
 	}
 	
 	private static double wheelDiameter = 1;

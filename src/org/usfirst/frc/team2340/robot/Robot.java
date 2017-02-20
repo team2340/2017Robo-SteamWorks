@@ -18,6 +18,7 @@ import org.usfirst.frc.team2340.robot.subsystems.*;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -33,6 +34,9 @@ import edu.wpi.first.wpilibj.vision.VisionThread;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
+// Java docs (online):
+// http://first.wpi.edu/FRC/roborio/release/docs/java/index.html
+// http://www.ctr-electronics.com/downloads/api/java/html/index.html
 public class Robot extends IterativeRobot {
 	public static final OI oi = new OI();
 	public static final DriveSubsystem drive = DriveSubsystem.getInstance();
@@ -69,8 +73,11 @@ public class Robot extends IterativeRobot {
 		// finding a different number of targets than the computer would find attached to the 
 		// same camera in the grip application.
 
-		cameraCommand= new CameraCommand(); 
-		UsbCamera camera = cameraCommand.getcamera(); 
+//		cameraCommand= new CameraCommand(); 
+//		UsbCamera camera = cameraCommand.getcamera();
+		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+		System.out.println("Camera's Name: " + camera.getName());
+		
 		camera.setResolution((int)Robot.oi.IMG_WIDTH, (int)Robot.oi.IMG_HEIGHT);
 
 		visionThread = new VisionThread(camera,new GripPipeline(), grip -> {
@@ -176,7 +183,7 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 		if (autonomousCommand != null) autonomousCommand.cancel();
 		Robot.drive.setForVBus();
-		cameraCommand.start();	
+//		cameraCommand.start();	
 	}
 
 	public void teleopPeriodic() {
