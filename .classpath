@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="var" path="cscore"/>
-	<classpathentry kind="var" path="networktables"/>
-	<classpathentry kind="var" path="opencv"/>
-	<classpathentry kind="var" path="wpilib"/>
-	<classpathentry kind="lib" path="C:/Users/Team2340/wpilib/user/java/lib/CTRLib.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Team2340/wpilib/user/java/lib/niVisionWPI.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="cscore" sourcepath="/WPILIBS_DIR/cscore-sources.jar"/>
+	<classpathentry kind="var" path="networktables" sourcepath="/WPILIBS_DIR/NetworkTables-sources.jar"/>
+	<classpathentry kind="var" path="opencv" sourcepath="/WPILIBS_DIR/opencv-sources.jar"/>
+	<classpathentry kind="var" path="wpilib" sourcepath="/WPILIBS_DIR/WPILib-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/Users/usx28220/wpilib/java/current/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="ctrlib">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/usx28220/wpilib/user/java/docs/CTRLib-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="var" path="niVisionWPI" sourcepath="/USERSRC_DIR/niVisionWPI-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/usx28220/wpilib/user/java/src/niVisionWPI-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
