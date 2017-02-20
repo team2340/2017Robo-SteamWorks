@@ -19,7 +19,7 @@ public class AcquisitionCommand extends Command {
 	protected void initialize() {
 		controller = Robot.oi.acquisitionController;
 		buttonPressed = false;
-		Robot.oi.ballAq.set(1);
+		Robot.oi.ballAq.set(-1);
 		on = true;
 	}
 
@@ -54,7 +54,7 @@ public class AcquisitionCommand extends Command {
 	
 	private void toggleAq() {
 		if(!on) {
-			Robot.oi.ballAq.set(1);
+			Robot.oi.ballAq.set(-1);
 			on = true;
 		}
 		else {
