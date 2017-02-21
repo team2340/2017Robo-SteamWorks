@@ -56,7 +56,7 @@ public class AcquisitionCommand extends Command {
 					Robot.oi.ballAq.set(0);
 					on =false;
 				}
-				if(!on){
+				else{
 					Robot.oi.ballAq.set(1);
 					on= true;
 				}

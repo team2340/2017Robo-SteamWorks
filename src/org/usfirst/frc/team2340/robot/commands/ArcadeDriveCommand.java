@@ -26,6 +26,11 @@ public class ArcadeDriveCommand extends Command {
 
 	@Override
 	protected void execute() {
+		double angle = Robot.oi.gyro.getAngle();
+		SmartDashboard.putNumber("Gyro angle", angle);
+		SmartDashboard.putNumber("left position", Robot.oi.left.getPosition());
+		SmartDashboard.putNumber("right position ",Robot.oi.right.getPosition());
+
 		double x, y, z;
 //		boolean currState = controller.getTrigger();
 //		if( currState && !prevState){
