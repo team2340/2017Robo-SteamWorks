@@ -108,15 +108,15 @@ public class Robot extends IterativeRobot {
 						double lengthOfOpposite=5.125;
 						double distanceFromTarget =0.0;
 						if ( r.x < q.x) {
-							leftmost = (r.x - (r.width/2));
-							rightmost = (q.x + (q.width/2));
+							leftmost = r.x + r.width;
+							rightmost = q.x;
 						} else {
-							leftmost = (q.x - (q.width/2));
-							rightmost = (r.x + (r.width/2));
+							leftmost = q.x + q.width;
+							rightmost = r.x;
 						}
 						pxBetweenTargets = rightmost - leftmost;
-						angleBetweenTargets = (61 * pxBetweenTargets)/ Robot.oi.IMG_WIDTH;
-						halfAngleBetweenTargets = angleBetweenTargets/2;
+						angleBetweenTargets = (Robot.oi.CAM_VIEWING_ANGLE * pxBetweenTargets)/Robot.oi.IMG_WIDTH;
+						halfAngleBetweenTargets = angleBetweenTargets/2.0;
 						double radians = Math.toRadians(halfAngleBetweenTargets);
 						distanceFromTarget = lengthOfOpposite/ (Math.tan(radians));
 						Robot.drive.finalDistance = distanceFromTarget;

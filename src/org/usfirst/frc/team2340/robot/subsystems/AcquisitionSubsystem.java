@@ -26,9 +26,8 @@ public class AcquisitionSubsystem extends Subsystem {
 		
 		try {
 			Robot.oi.ballFeeder = new CANTalon(RobotMap.BALL_FEEDER_TAL_ID);
-			Robot.oi.ballFeeder.changeControlMode(CANTalon.TalonControlMode.Follower);
-			Robot.oi.ballFeeder.set(RobotMap.BALL_SHOOTER_TAL_ID);
-			Robot.oi.ballFeeder.reverseOutput(true);
+//			Robot.oi.ballFeeder.changeControlMode(CANTalon.TalonControlMode.Follower);
+//			Robot.oi.ballFeeder.set(RobotMap.BALL_SHOOTER_TAL_ID);
 		} catch (Exception ex) {
 			System.out.println(" createTalon FAILED");
 		}

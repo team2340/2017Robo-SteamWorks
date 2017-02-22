@@ -6,7 +6,13 @@
 	<classpathentry kind="var" path="networktables" sourcepath="/WPILIBS_DIR/NetworkTables-sources.jar"/>
 	<classpathentry kind="var" path="opencv" sourcepath="/WPILIBS_DIR/opencv-sources.jar"/>
 	<classpathentry kind="var" path="wpilib" sourcepath="/WPILIBS_DIR/WPILib-sources.jar"/>
-	<classpathentry kind="var" path="ctrlib"/>
+	<classpathentry kind="var" path="ctrlib">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/Team2340/wpilib/user/java/docs/CTRLib-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="var" path="niVisionWPI"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/CTRLib.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/niVisionWPI.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

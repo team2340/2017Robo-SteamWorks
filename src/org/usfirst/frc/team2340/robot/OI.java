@@ -22,6 +22,7 @@ public class OI {
 	public CANTalon ballFeeder = null;
 	public CANTalon climbing = null;
 	
+	public final double CAM_VIEWING_ANGLE = 61.0;
 	public final double IMG_WIDTH = 640.0;
 	public final double IMG_HEIGHT = 480.0;
     

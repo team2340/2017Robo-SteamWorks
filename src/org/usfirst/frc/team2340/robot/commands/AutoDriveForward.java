@@ -47,13 +47,13 @@ public class AutoDriveForward extends Command {
 				lDone = true;
 			}
 		}
-		if(rotationComplete && !inMotion){
-			Robot.drive.setForPosition();
-			desiredSpot = RobotUtils.getEncPositionFromIN(Robot.drive.finalDistance- 0);
-			Robot.oi.left.set(desiredSpot);
-			Robot.oi.right.set(-desiredSpot);
-			inMotion = true;
-		}
+//		if(rotationComplete && !inMotion){
+//			Robot.drive.setForPosition();
+//			desiredSpot = RobotUtils.getEncPositionFromIN(Robot.drive.finalDistance- 0);
+//			Robot.oi.left.set(desiredSpot);
+//			Robot.oi.right.set(-desiredSpot);
+//			inMotion = true;
+//		}
 
 		if(rDone && lDone && !rotationComplete){
 			Robot.drive.setForSpeed();

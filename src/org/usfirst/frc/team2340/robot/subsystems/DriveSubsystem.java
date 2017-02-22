@@ -55,7 +55,7 @@ public class DriveSubsystem extends Subsystem {
 		try {
 			Robot.oi.left = new CANTalon(RobotMap.LEFT_TAL_ID);
 			Robot.oi.left.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-			Robot.oi.left.reverseSensor(true);
+//			Robot.oi.left.reverseSensor(true);
 			Robot.oi.left.configEncoderCodesPerRev(250);
 			Robot.oi.left.configNominalOutputVoltage(+0.0f, -0.0f);
 		    Robot.oi.left.setProfile(0);
@@ -69,7 +69,7 @@ public class DriveSubsystem extends Subsystem {
 			Robot.oi.right = new CANTalon(RobotMap.RIGHT_TAL_ID);
 			
 			Robot.oi.right.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-			Robot.oi.right.reverseSensor(true);
+//			Robot.oi.right.reverseSensor(true);
 			Robot.oi.right.configEncoderCodesPerRev(250);
 			Robot.oi.right.configNominalOutputVoltage(+0.0f, -0.0f);
 		    Robot.oi.right.setProfile(0);
