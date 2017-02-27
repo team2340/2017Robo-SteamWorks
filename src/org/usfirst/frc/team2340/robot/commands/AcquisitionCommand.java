@@ -51,7 +51,7 @@ public class AcquisitionCommand extends Command {
 				currentTime = System.currentTimeMillis();
 			}
 			
-			Robot.oi.ballShooter.set(controller.getZ());
+			Robot.oi.ballShooter.set(0.74/*controller.getZ()*/);
 			
 			if(currentTime <= System.currentTimeMillis() - 3000) {
 				Robot.oi.ballFeeder.set(-1);

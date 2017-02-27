@@ -25,7 +25,6 @@ public class CameraCommand extends Command {
 		camera0 = new UsbCamera("USB Camera " + intcam0, intcam0);    
 	    CameraServer.getInstance().addCamera(camera0);
 	    server = CameraServer.getInstance().addServer("serve_" + camera0.getName());
-	    server.setSource(camera0);
 	    
 	    camera1 = new UsbCamera("USB Camera " + intcam1, intcam1);    
 	    CameraServer.getInstance().addCamera(camera1);
@@ -33,6 +32,8 @@ public class CameraCommand extends Command {
 		curCam = camera0;
 		SmartDashboard.putString("Current Cam", curCam.getName());
 		buttonPressed = false;
+		
+		server.setSource(camera0);
 	}
 	@Override
 	protected void initialize() {

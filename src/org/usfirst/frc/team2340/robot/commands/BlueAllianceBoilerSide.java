@@ -26,15 +26,15 @@ public class BlueAllianceBoilerSide extends Command {
 	protected void initialize() {
 		startTime = System.currentTimeMillis();
 		rotateDone = lDone = rDone = crDone = clDone = rotationComplete = inMotion = false;
-//		desiredSpot = RobotUtils.getEncPositionFromIN(RobotUtils.distanceMinusRobot(105));
-		desiredSpot = RobotUtils.getEncPositionFromIN(RobotUtils.distanceMinusRobot(111));
+		desiredSpot = RobotUtils.getEncPositionFromIN(RobotUtils.distanceMinusRobot(105));
+//		desiredSpot = RobotUtils.getEncPositionFromIN(RobotUtils.distanceMinusRobot(111));
 		Robot.oi.left.set(desiredSpot);
 		Robot.oi.right.set(-desiredSpot);
 	}
 
 protected boolean RotateRight(){
 	double angle = Robot.oi.gyro.getAngle();
-	if(angle >=62){
+	if(angle >=54){
 		Robot.drive.setForPosition();
 		Robot.oi.left.set(0);
 		Robot.oi.right.set(0);
@@ -43,8 +43,8 @@ protected boolean RotateRight(){
 	}
 	else{
 		Robot.drive.setForSpeed();
-		Robot.oi.left.set(2.5* (64 - angle)+10);
-		Robot.oi.right.set(2.5* (64 - angle)+10);
+		Robot.oi.left.set(2.5* (58 - angle)+10);
+		Robot.oi.right.set(2.5* (58 - angle)+10);
 		return false;
 	}
 }
@@ -118,7 +118,7 @@ protected boolean RotateRight(){
 			if(driveCount < 2) {
 				adjustAndDrive = adjustAndDriveHalfWay(-1, -1, 15);
 			} else {
-				desiredSpot = RobotUtils.getEncPositionFromIN(Robot.drive.finalDistance - 10);
+				desiredSpot = RobotUtils.getEncPositionFromIN(Robot.drive.finalDistance);
 				System.out.println("FINAL drive");
 				Robot.oi.left.set(desiredSpot);
 				Robot.oi.right.set(-desiredSpot);

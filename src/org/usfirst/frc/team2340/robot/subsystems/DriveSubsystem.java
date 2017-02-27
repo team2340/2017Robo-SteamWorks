@@ -22,7 +22,7 @@ public class DriveSubsystem extends Subsystem {
 	public double speedMaxOutput = 350;
 	public double speedPeakOutputVoltage = 12.0f;
 	
-	public double positionP = 2.0;
+	public double positionP = 1.5;
 	public double positionI = .0001;
 	public double positionD = 0.0;
 	public double positionF = 0.0;

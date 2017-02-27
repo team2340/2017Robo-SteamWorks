@@ -14,6 +14,7 @@ import org.usfirst.frc.team2340.robot.commands.CameraCommand;
 import org.usfirst.frc.team2340.robot.commands.RedAllianceBoilerSide;
 import org.usfirst.frc.team2340.robot.commands.RedAllianceRetrievalZone;
 import org.usfirst.frc.team2340.robot.grip.GripPipeline;
+import org.usfirst.frc.team2340.robot.grip.GripPipelineRectangle;
 import org.usfirst.frc.team2340.robot.subsystems.*;
 
 import edu.wpi.cscore.UsbCamera;
@@ -76,7 +77,7 @@ public class Robot extends IterativeRobot {
 		System.out.println("Camera name: " + camera.getName());
 		camera.setResolution((int)Robot.oi.IMG_WIDTH, (int)Robot.oi.IMG_HEIGHT);
 
-		visionThread = new VisionThread(camera,new GripPipeline(), grip -> {
+		visionThread = new VisionThread(camera,new GripPipelineRectangle(), grip -> {
 			if(!grip.filterContoursOutput().isEmpty()){
 				ArrayList<MatOfPoint> contours = grip.filterContoursOutput();
 				ArrayList<MatOfPoint> targets = new ArrayList<MatOfPoint>();
@@ -105,7 +106,7 @@ public class Robot extends IterativeRobot {
 						double pxBetweenTargets=0.0;
 						double angleBetweenTargets=0.0;
 						double halfAngleBetweenTargets=0.0;
-						double lengthOfOpposite=5.125;
+						double lengthOfOpposite=3.125;
 						double distanceFromTarget =0.0;
 						if ( r.x < q.x) {
 							leftmost = r.x + r.width;
@@ -173,6 +174,8 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousPeriodic() {
+		SmartDashboard.putNumber("left position", Robot.oi.left.getPosition());
+		SmartDashboard.putNumber("right position ",Robot.oi.right.getPosition()); 
 		Scheduler.getInstance().run();
 	}
 
@@ -183,6 +186,8 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("left position", Robot.oi.left.getPosition());
+		SmartDashboard.putNumber("right position ",Robot.oi.right.getPosition()); 
 		Scheduler.getInstance().run();
 	}
 

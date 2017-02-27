@@ -31,7 +31,10 @@ public class AutoDriveForward extends Command {
 		long elapsed = (System.currentTimeMillis() - startTime)/1000;
 
 		SmartDashboard.putNumber("left position", Robot.oi.left.getPosition());
-		SmartDashboard.putNumber("right position ",Robot.oi.right.getPosition()); 
+		SmartDashboard.putNumber("right position ",Robot.oi.right.getPosition());
+
+		System.out.println("left position: "+Robot.oi.left.getPosition());
+		System.out.println("right position: "+Robot.oi.right.getPosition());
 
 		SmartDashboard.putNumber("Auto Elapsed", elapsed);
 		SmartDashboard.putNumber("Gyro angle", angle);
@@ -47,13 +50,13 @@ public class AutoDriveForward extends Command {
 				lDone = true;
 			}
 		}
-//		if(rotationComplete && !inMotion){
-//			Robot.drive.setForPosition();
-//			desiredSpot = RobotUtils.getEncPositionFromIN(Robot.drive.finalDistance- 0);
-//			Robot.oi.left.set(desiredSpot);
-//			Robot.oi.right.set(-desiredSpot);
-//			inMotion = true;
-//		}
+		if(rotationComplete && !inMotion){
+			Robot.drive.setForPosition();
+			desiredSpot = RobotUtils.getEncPositionFromIN(Robot.drive.finalDistance- 0);
+			Robot.oi.left.set(desiredSpot);
+			Robot.oi.right.set(-desiredSpot);
+			inMotion = true;
+		}
 
 		if(rDone && lDone && !rotationComplete){
 			Robot.drive.setForSpeed();
@@ -71,11 +74,11 @@ public class AutoDriveForward extends Command {
 		if ( Robot.drive.centerX != -1 ) {
 			if(Robot.drive.centerX > 340) { //+rotate: go right
 				System.out.println("Adjusting 330 " + Robot.drive.centerX);
-				rotateRight(40);
+				rotateRight(20);
 			}
 			else if(Robot.drive.centerX < 310){ //-rotate: go left
 				System.out.println("Adjusting 310 "  + Robot.drive.centerX);
-				rotateLeft(40);
+				rotateLeft(20);
 			}
 			else{
 				System.out.println("Good Enough!");
