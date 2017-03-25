@@ -33,11 +33,11 @@ public class AcquisitionCommand extends Command {
 	protected void execute() {
 		//SmartDashboard.putNumber("shooter position", Robot.oi.left.getPosition());
 		//SmartDashboard.putNumber("climber position ",Robot.oi.climbing.getPosition());
-		if(controller.getTrigger()){
-			Robot.oi.gearAcquisition.set(.1);
+		if (controller.getRawButton(RobotMap.BUTTON_6)){
+			Robot.oi.gearAcquisition.set(.15);
 		}
 		else{
-			Robot.oi.gearAcquisition.set(-.1);
+			Robot.oi.gearAcquisition.set(-.15);
 			
 		}
 		

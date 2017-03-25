@@ -17,6 +17,8 @@ import org.opencv.features2d.FeatureDetector;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.*;
 import org.opencv.objdetect.*;
+import org.opencv.utils.Converters;
+import org.usfirst.frc.team2340.robot.RobotMap;
 
 /**
 * GripPipelineRectangle class.
@@ -26,6 +28,7 @@ import org.opencv.objdetect.*;
 * @author GRIP
 */
 public class GripPipelineRectangle implements VisionPipeline {
+	Integer count=0;
 
 	//Outputs
 	private Mat resizeImageOutput = new Mat();
@@ -46,7 +49,13 @@ public class GripPipelineRectangle implements VisionPipeline {
 	/**
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
-	@Override	public void process(Mat source0) {
+	@Override
+	public void process(Mat source0) {
+		if (RobotMap.TAKE_PIC){
+			Imgcodecs.imwrite("/images/autoPic"+ count++ +".jpg", source0);
+			RobotMap.TAKE_PIC=false;
+		}
+
 		// Step Resize_Image0:
 		Mat resizeImageInput = source0;
 		double resizeImageWidth = 640.0;
@@ -120,7 +129,8 @@ public class GripPipelineRectangle implements VisionPipeline {
 		double filterContoursMinRatio = 0.0;
 		double filterContoursMaxRatio = 1000.0;
 		filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, filterContoursOutput);
-
+		//ArrayList<Mat> matThing = new ArrayList<Mat>();	
+		//Imgcodecs.imwrite("/images/grip.jpg",Converters.vector_vector_Point_to_Mat(filterContoursOutput, matThing));
 	}
 
 	/**

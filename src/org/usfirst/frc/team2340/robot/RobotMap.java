@@ -28,4 +28,6 @@ public class RobotMap {
 	public static final int BALL_FEEDER_TAL_ID = 7; //Ball Feeder is 7
 	public static final int BALL_SHOOTER_TAL_ID = 8; //Ball Shooter is 8
 	public static final int GEAR_AQ_TAL_ID = 9; //expand or retract gear holder window motor is 9
+	public static boolean TAKE_PIC = false;
 }
+	

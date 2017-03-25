@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2340.robot.commands;
 
 import org.usfirst.frc.team2340.robot.Robot;
+import org.usfirst.frc.team2340.robot.RobotMap;
 import org.usfirst.frc.team2340.robot.RobotUtils;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -35,17 +36,19 @@ public class BlueAllianceBoilerSide extends Command {
 
 protected boolean RotateRight(){
 	double angle = Robot.oi.gyro.getAngle();
-	if(angle >=58){
+	double desiredAngle = 58;
+	if(angle >= desiredAngle){
 		Robot.drive.setForPosition();
 		Robot.oi.left.set(0);
 		Robot.oi.right.set(0);
 		System.out.print("ROTATE done");
+		RobotMap.TAKE_PIC = true;
 		return true;
 	}
 	else{
 		Robot.drive.setForSpeed();
-		Robot.oi.left.set(2.5* (58 - angle)+10);
-		Robot.oi.right.set(2.5* (58 - angle)+10);
+		Robot.oi.left.set(2.5 * (desiredAngle - angle) + 10);
+		Robot.oi.right.set(2.5 * (desiredAngle - angle) + 10);
 		return false;
 	}
 }
@@ -87,12 +90,14 @@ protected boolean RotateRight(){
 				Robot.oi.right.set(0);
 				System.out.println( System.currentTimeMillis() + " CRDONE");
 				crDone = true;
+				RobotMap.TAKE_PIC= true;
 			}
 			if(Robot.oi.left.getPosition()>=desiredSpot){
 				Robot.oi.left.setPosition(0);
 				Robot.oi.left.set(0);
 				System.out.println(System.currentTimeMillis() + " CLDONE");
 				clDone = true;
+				RobotMap.TAKE_PIC= true;
 			}
 		}
 
@@ -124,6 +129,7 @@ protected boolean RotateRight(){
 				Robot.oi.left.set(desiredSpot);
 				Robot.oi.right.set(-desiredSpot);
 				rotationComplete = true;
+				RobotMap.TAKE_PIC= true;
 				//adjustAndDrive = adjustAndDriveHalfWay(315,330,10);
 			}
 			if ( adjustAndDrive ) {
@@ -236,4 +242,3 @@ protected boolean RotateRight(){
 	protected void interrupted() {
 	}
 }
-

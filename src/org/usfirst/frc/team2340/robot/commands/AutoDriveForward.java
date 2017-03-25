@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2340.robot.commands;
 
 import org.usfirst.frc.team2340.robot.Robot;
+import org.usfirst.frc.team2340.robot.RobotMap;
 import org.usfirst.frc.team2340.robot.RobotUtils;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -61,6 +62,7 @@ public class AutoDriveForward extends Command {
 			Robot.oi.right.set(-desiredSpot);
 			inMotion = true;
 			beginFinalApproachTime = System.currentTimeMillis();
+			RobotMap.TAKE_PIC = true;
 		} else if ( rotationComplete && !inMotion && nothingDetected == true ) {
 			Robot.drive.setForPosition();
 			Robot.drive.setPeakOutputVoltage(3);
@@ -115,6 +117,7 @@ public class AutoDriveForward extends Command {
 			else{
 				System.out.println("Good Enough!");
 				setSpeed(0);
+				RobotMap.TAKE_PIC = true;
 				return true;
 			}
 		} else {
