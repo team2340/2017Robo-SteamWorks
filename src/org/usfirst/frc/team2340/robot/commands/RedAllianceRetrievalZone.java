@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RedAllianceRetrievalZone extends Command {
 	long startTime = 0;
+	int printedForDriveCount = -1;
 	boolean lDone = false, rDone = false;
 	boolean crDone, clDone, rotationComplete, inMotion;
 	boolean rotateDone = false;
@@ -34,7 +35,7 @@ public class RedAllianceRetrievalZone extends Command {
 
 protected boolean RotateRight(){
 	double angle = Robot.oi.gyro.getAngle();
-	if(angle >=54){
+	if(angle >=58){
 		Robot.drive.setForPosition();
 		Robot.oi.left.set(0);
 		Robot.oi.right.set(0);
@@ -74,7 +75,7 @@ protected boolean RotateRight(){
 			rotateDone = RotateRight(); 
 		}
 		if(rotateDone && !crDone && !clDone) {
-			System.out.println("DRIVE AGAIN");
+			//System.out.println("DRIVE AGAIN");
 			desiredSpot = RobotUtils.getEncPositionFromIN(45);
 			Robot.oi.left.set(desiredSpot);
 			Robot.oi.right.set(-desiredSpot);
@@ -129,6 +130,11 @@ protected boolean RotateRight(){
 				resetAdjustAndDriveHalfway();
 				driveCount++;
 			}
+		} else if (crDone && clDone && !rotationComplete && driveCount < 10) {
+			if (driveCount != printedForDriveCount) {
+				printedForDriveCount = driveCount;
+				System.out.println(System.currentTimeMillis() + " no final dist");
+			}
 		}
 	}
 	
@@ -147,7 +153,7 @@ protected boolean RotateRight(){
 		if (methodRotationComplete && !methodDriving) {
 			Robot.drive.setForPosition();
 			methodDriving = true;
-			methodDesiredSpot = RobotUtils.getEncPositionFromIN( (Robot.drive.finalDistance - 8)/2);
+			methodDesiredSpot = RobotUtils.getEncPositionFromIN( (Robot.drive.finalDistance - 6)/2);
 			Robot.oi.left.set(methodDesiredSpot);
 			Robot.oi.right.set(-methodDesiredSpot);
 		}

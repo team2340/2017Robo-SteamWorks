@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoDriveForward extends Command {
 	long startTime = 0;
-	boolean rDone, lDone, rotationComplete, inMotion;
+	boolean rDone, lDone, rotationComplete, inMotion, finalBackupDone, nothingDetected;
 	double desiredSpot = 0;
 
 	public AutoDriveForward() {
@@ -21,6 +21,8 @@ public class AutoDriveForward extends Command {
 		rotationComplete= false;
 		lDone = rDone = false;
 		inMotion = false;
+		finalBackupDone = false;
+		nothingDetected = false;
 		desiredSpot = RobotUtils.getEncPositionFromIN(RobotUtils.distanceMinusRobot(88));
 		Robot.oi.left.set(desiredSpot);
 		Robot.oi.right.set(-desiredSpot);
@@ -29,6 +31,7 @@ public class AutoDriveForward extends Command {
 	protected void execute() {
 		double angle = Robot.oi.gyro.getAngle();
 		long elapsed = (System.currentTimeMillis() - startTime)/1000;
+		long beginFinalApproachTime = 0;
 
 		SmartDashboard.putNumber("left position", Robot.oi.left.getPosition());
 		SmartDashboard.putNumber("right position ",Robot.oi.right.getPosition());
@@ -50,11 +53,19 @@ public class AutoDriveForward extends Command {
 				lDone = true;
 			}
 		}
-		if(rotationComplete && !inMotion){
+		if(rotationComplete && !inMotion && nothingDetected == false){
 			Robot.drive.setForPosition();
+			Robot.drive.setPeakOutputVoltage(3);
 			desiredSpot = RobotUtils.getEncPositionFromIN(Robot.drive.finalDistance- 0);
 			Robot.oi.left.set(desiredSpot);
 			Robot.oi.right.set(-desiredSpot);
+			inMotion = true;
+			beginFinalApproachTime = System.currentTimeMillis();
+		} else if ( rotationComplete && !inMotion && nothingDetected == true ) {
+			Robot.drive.setForPosition();
+			Robot.drive.setPeakOutputVoltage(3);
+			Robot.oi.left.set(5);
+			Robot.oi.right.set(-5);
 			inMotion = true;
 		}
 
@@ -66,6 +77,27 @@ public class AutoDriveForward extends Command {
 				System.out.println("Adjusting...");
 			}
 		}
+		
+//		if (inMotion) {
+//			//final backup logic, to unwedge gear
+//			if ( (System.currentTimeMillis() - beginFinalApproachTime) > 1000 ) {
+//				//it has been 1 second since we started the final approach, what should be do
+//				System.out.println("Might be time to back up speeds: " + Robot.oi.right.getSpeed()
+//				                   + " speed2 " + Robot.oi.left.getSpeed());
+//				if (Robot.oi.right.getSpeed() == 0 && Robot.oi.left.getSpeed() == 0){
+//					//speed is 0, maybe we are wedged?
+//					if ( !finalBackupDone ) {
+//						//only backup 1 inch once
+//						Robot.drive.setForPosition();
+//						Robot.drive.setPeakOutputVoltage(3);
+//						desiredSpot = -1;
+//						Robot.oi.left.set(desiredSpot);
+//						Robot.oi.right.set(-desiredSpot);
+//						finalBackupDone = true;
+//					}
+//				}
+//			}
+//		}
 	} 
 
 	private boolean adjustRotation()
@@ -87,7 +119,9 @@ public class AutoDriveForward extends Command {
 			}
 		} else {
 			setSpeed(0);
+			nothingDetected = true;
 			System.out.println("Nothing detected");
+			return true;	
 		}
 
 		return false;

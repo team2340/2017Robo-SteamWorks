@@ -8,6 +8,7 @@ import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team2340.robot.RobotUtils.AutoMode;
 import org.usfirst.frc.team2340.robot.commands.AutoDriveForward;
+import org.usfirst.frc.team2340.robot.commands.AutoShooter;
 import org.usfirst.frc.team2340.robot.commands.BlueAllianceBoilerSide;
 import org.usfirst.frc.team2340.robot.commands.BlueAllianceRetrievalZone;
 import org.usfirst.frc.team2340.robot.commands.CameraCommand;
@@ -58,8 +59,8 @@ public class Robot extends IterativeRobot {
 		RobotUtils.setWheelDiameter(4);
 
 		oi.gyro = new ADXRS450_Gyro();
-
-		autoMode.addDefault("DriveForward", AutoMode.AUTODRIVEFORWARD);
+        autoMode.addDefault("DriveForward", AutoMode.AUTODRIVEFORWARD);
+        autoMode.addObject("AutoShooter", AutoMode.AutoShooter);
 		autoMode.addObject("Disabled", AutoMode.DISABLED);
 		autoMode.addObject("BlueAllianceBoilerSide", AutoMode.BLUEALLIANCEBOILERSIDE);
 		autoMode.addObject("BlueAllianceRetrievalZone", AutoMode.BLUEALLIANCERETRIEVALZONE);
@@ -93,7 +94,9 @@ public class Robot extends IterativeRobot {
 				}
 				if ( lastTargets != targets.size()) { 
 					lastTargets = targets.size();
-					System.out.println("num targets: " + lastTargets);
+					if(!isOperatorControl()){
+						System.out.println(System.currentTimeMillis() + " num targets: " + lastTargets);
+					}
 				}
 				if(targets.size() == 2){
 					Rect r = Imgproc.boundingRect(grip.filterContoursOutput().get(0));
@@ -106,24 +109,28 @@ public class Robot extends IterativeRobot {
 						double pxBetweenTargets=0.0;
 						double angleBetweenTargets=0.0;
 						double halfAngleBetweenTargets=0.0;
-						double lengthOfOpposite=3.125;
+						double lengthOfOpposite=5.125;
 						double distanceFromTarget =0.0;
 						if ( r.x < q.x) {
-							leftmost = r.x + r.width;
-							rightmost = q.x;
+							leftmost = r.x;
+							rightmost = q.x+ q.width;
 						} else {
-							leftmost = q.x + q.width;
-							rightmost = r.x;
+							leftmost = q.x;
+							rightmost = r.x+ r.width;
 						}
 						pxBetweenTargets = rightmost - leftmost;
 						angleBetweenTargets = (Robot.oi.CAM_VIEWING_ANGLE * pxBetweenTargets)/Robot.oi.IMG_WIDTH;
 						halfAngleBetweenTargets = angleBetweenTargets/2.0;
 						double radians = Math.toRadians(halfAngleBetweenTargets);
 						distanceFromTarget = lengthOfOpposite/ (Math.tan(radians));
-						Robot.drive.finalDistance = distanceFromTarget;
-						System.out.println("r.x: "+r.x+", r.width: "+r.width
-								+", q.x: "+q.x+", q.width: "+q.width
-								+", centerX: "+Robot.drive.centerX + ", distance: "+distanceFromTarget);
+						if ( distanceFromTarget >= 0 ) {
+							Robot.drive.finalDistance = distanceFromTarget;
+						}
+						if(!isOperatorControl()){
+							System.out.println(System.currentTimeMillis() + " r.x: "+r.x+", r.width: "+r.width
+									+", q.x: "+q.x+", q.width: "+q.width
+									+", centerX: "+Robot.drive.centerX + ", distance: "+distanceFromTarget);
+						}
 						//System.out.println("leftmost: " + leftmost + " rightmost: " + rightmost);
 					}
 				} else {
@@ -166,6 +173,9 @@ public class Robot extends IterativeRobot {
 		}
 		else if(am == AutoMode.REDALLIANCEBOILERSIDE){
 			autonomousCommand = new RedAllianceBoilerSide();
+		}	
+		else if(am == AutoMode.AutoShooter){
+			autonomousCommand = new AutoShooter();
 		}	
 		else if (am == AutoMode.DISABLED) {} //Do Nothing if disabled
 

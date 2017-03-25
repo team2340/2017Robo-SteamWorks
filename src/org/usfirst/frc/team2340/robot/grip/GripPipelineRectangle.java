@@ -96,9 +96,9 @@ public class GripPipelineRectangle implements VisionPipeline {
 
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = cvRectangle1Output;
-		double[] hslThresholdHue = {1.618705035971223, 87.84982935153585};
-		double[] hslThresholdSaturation = {139.88309352517987, 255.0};
-		double[] hslThresholdLuminance = {96.90459496809329, 255.0};
+		double[] hslThresholdHue = {52.0, 94.0};
+		double[] hslThresholdSaturation = {254.0, 255.0};
+		double[] hslThresholdLuminance = {138.0, 255.0};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 		// Step Find_Contours0:
@@ -112,7 +112,7 @@ public class GripPipelineRectangle implements VisionPipeline {
 		double filterContoursMinPerimeter = 0.0;
 		double filterContoursMinWidth = 0.0;
 		double filterContoursMaxWidth = 1000.0;
-		double filterContoursMinHeight = 0.0;
+		double filterContoursMinHeight = 50.0;
 		double filterContoursMaxHeight = 1000.0;
 		double[] filterContoursSolidity = {0, 100};
 		double filterContoursMaxVertices = 1000000.0;

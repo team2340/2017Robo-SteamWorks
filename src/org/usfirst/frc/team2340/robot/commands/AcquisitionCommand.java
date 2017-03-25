@@ -32,7 +32,14 @@ public class AcquisitionCommand extends Command {
 	@Override
 	protected void execute() {
 		//SmartDashboard.putNumber("shooter position", Robot.oi.left.getPosition());
-		SmartDashboard.putNumber("climber position ",Robot.oi.climbing.getPosition());
+		//SmartDashboard.putNumber("climber position ",Robot.oi.climbing.getPosition());
+		if(controller.getTrigger()){
+			Robot.oi.gearAcquisition.set(.1);
+		}
+		else{
+			Robot.oi.gearAcquisition.set(-.1);
+			
+		}
 		
 		if (controller.getRawButton(RobotMap.BUTTON_2)){
 			if(!button2Pressed)

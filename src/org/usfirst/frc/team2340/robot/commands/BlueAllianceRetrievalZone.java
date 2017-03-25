@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class BlueAllianceRetrievalZone extends Command {
 	long startTime = 0;
+	int printedForDriveCount = -1;
 	boolean lDone = false, rDone = false;
 	boolean crDone, clDone, rotationComplete, inMotion;
 	boolean rotateDone = false;
@@ -26,7 +27,7 @@ public class BlueAllianceRetrievalZone extends Command {
 	protected void initialize() {
 		startTime = System.currentTimeMillis();
 		rotateDone = lDone = rDone = crDone = clDone = rotationComplete = inMotion = false;
-		desiredSpot = RobotUtils.getEncPositionFromIN(RobotUtils.distanceMinusRobot(105));
+		desiredSpot = RobotUtils.getEncPositionFromIN(RobotUtils.distanceMinusRobot(109)); //was 105 jackie
 //		desiredSpot = RobotUtils.getEncPositionFromIN(RobotUtils.distanceMinusRobot(111));
 		Robot.oi.left.set(desiredSpot);
 		Robot.oi.right.set(-desiredSpot);
@@ -35,7 +36,7 @@ public class BlueAllianceRetrievalZone extends Command {
 protected boolean RotateLeft(){
 	double angle = Robot.oi.gyro.getAngle();
 //	if(angle >=54){ 
-	if(angle <=-54){
+	if(angle <=-58){
 		Robot.drive.setForPosition();
 		Robot.oi.left.set(0);
 		Robot.oi.right.set(0);
@@ -45,9 +46,9 @@ protected boolean RotateLeft(){
 	else{
 		Robot.drive.setForSpeed();
 //		Robot.oi.left.set(2.5*(54 - angle) + 10));
-		Robot.oi.left.set(-2.5* (54 + angle)-10);
+		Robot.oi.left.set(-2.5* (58 + angle)-10);
 //		Robot.oi.right.set(2.5*(54-angle)+10));
-		Robot.oi.right.set(-2.5* (54 + angle)-10);
+		Robot.oi.right.set(-2.5* (58 + angle)-10);
 		return false;
 	}
 }
@@ -77,7 +78,7 @@ protected boolean RotateLeft(){
 			rotateDone = RotateLeft(); 
 		}
 		if(rotateDone && !crDone && !clDone) {
-			System.out.println("DRIVE AGAIN");
+			//System.out.println("DRIVE AGAIN");
 			desiredSpot = RobotUtils.getEncPositionFromIN(45);
 			Robot.oi.left.set(desiredSpot);
 			Robot.oi.right.set(-desiredSpot);
@@ -132,6 +133,11 @@ protected boolean RotateLeft(){
 				resetAdjustAndDriveHalfway();
 				driveCount++;
 			}
+		} else if (crDone && clDone && !rotationComplete && driveCount < 10) {
+			if (driveCount != printedForDriveCount) {
+				printedForDriveCount = driveCount;
+				System.out.println(System.currentTimeMillis() + " no final dist");
+			}
 		}
 	}
 	
@@ -150,7 +156,7 @@ protected boolean RotateLeft(){
 		if (methodRotationComplete && !methodDriving) {
 			Robot.drive.setForPosition();
 			methodDriving = true;
-			methodDesiredSpot = RobotUtils.getEncPositionFromIN( (Robot.drive.finalDistance - 8)/2);
+			methodDesiredSpot = RobotUtils.getEncPositionFromIN( (Robot.drive.finalDistance - 6)/2);
 			Robot.oi.left.set(methodDesiredSpot);
 			Robot.oi.right.set(-methodDesiredSpot);
 		}

@@ -21,6 +21,7 @@ public class OI {
 	public CANTalon ballShooter = null;
 	public CANTalon ballFeeder = null;
 	public CANTalon climbing = null;
+	public CANTalon gearAcquisition = null;
 	
 	public final double CAM_VIEWING_ANGLE = 61.0;
 	public final double IMG_WIDTH = 640.0;

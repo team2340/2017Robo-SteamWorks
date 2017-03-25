@@ -56,7 +56,7 @@ public class DriveSubsystem extends Subsystem {
 			Robot.oi.left = new CANTalon(RobotMap.LEFT_TAL_ID);
 			Robot.oi.left.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 //			Robot.oi.left.reverseSensor(true);
-			Robot.oi.left.configEncoderCodesPerRev(250);
+			Robot.oi.left.configEncoderCodesPerRev(360);
 			Robot.oi.left.configNominalOutputVoltage(+0.0f, -0.0f);
 		    Robot.oi.left.setProfile(0);
 		} catch (Exception ex) {
@@ -70,7 +70,7 @@ public class DriveSubsystem extends Subsystem {
 			
 			Robot.oi.right.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 //			Robot.oi.right.reverseSensor(true);
-			Robot.oi.right.configEncoderCodesPerRev(250);
+			Robot.oi.right.configEncoderCodesPerRev(360);
 			Robot.oi.right.configNominalOutputVoltage(+0.0f, -0.0f);
 		    Robot.oi.right.setProfile(0);
 		} catch (Exception ex) {
@@ -92,6 +92,11 @@ public class DriveSubsystem extends Subsystem {
 	    robotDrive.setMaxOutput (speedMaxOutput);
 	    Robot.oi.left.configPeakOutputVoltage(speedPeakOutputVoltage, -speedPeakOutputVoltage);
 	    Robot.oi.right.configPeakOutputVoltage(speedPeakOutputVoltage, -speedPeakOutputVoltage);	
+	}
+	
+	public void setPeakOutputVoltage(float voltage) {
+		Robot.oi.left.configPeakOutputVoltage(voltage, -voltage);
+	    Robot.oi.right.configPeakOutputVoltage(voltage, -voltage);	
 	}
 	
 	public void setForPosition() {

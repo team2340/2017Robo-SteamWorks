@@ -38,6 +38,12 @@ public class AcquisitionSubsystem extends Subsystem {
 		} catch (Exception ex) {
 			System.out.println(" createTalon FAILED");
 		}
+		try {
+			Robot.oi.gearAcquisition = new CANTalon(RobotMap.GEAR_AQ_TAL_ID);
+		} catch (Exception ex) {
+			System.out.println(" createTalon FAILED");
+		}
+		
 	}
 
 	public static AcquisitionSubsystem getInstance() {
