@@ -28,8 +28,7 @@ public class BlueAllianceBoilerSide extends Command {
 	protected void initialize() {
 		startTime = System.currentTimeMillis();
 		rotateDone = lDone = rDone = crDone = clDone = rotationComplete = inMotion = false;
-		desiredSpot = RobotUtils.getEncPositionFromIN(RobotUtils.distanceMinusRobot(105));
-//		desiredSpot = RobotUtils.getEncPositionFromIN(RobotUtils.distanceMinusRobot(111));
+		desiredSpot = RobotUtils.getEncPositionFromIN(RobotUtils.distanceMinusRobot(117));
 		Robot.oi.left.set(desiredSpot);
 		Robot.oi.right.set(-desiredSpot);
 	}
@@ -79,7 +78,7 @@ protected boolean RotateRight(){
 		}
 		if(rotateDone && !crDone && !clDone) {
 		//	System.out.println("DRIVE AGAIN");
-			desiredSpot = RobotUtils.getEncPositionFromIN(45);
+			desiredSpot = RobotUtils.getEncPositionFromIN(36);
 			Robot.oi.left.set(desiredSpot);
 			Robot.oi.right.set(-desiredSpot);
 		}

@@ -9,8 +9,8 @@ public class RobotMap {
 //magic numbers~~
 //	public static final int BUTTON_1 = 1;
 	public static final int BUTTON_2 = 2; 
-//	public static final int BUTTON_3 = 3;
-//	public static final int BUTTON_4 = 4;
+	public static final int BUTTON_3 = 3;
+	public static final int BUTTON_4 = 4;
 	public static final int BUTTON_5 = 5;
 	public static final int BUTTON_6 = 6;
 	public static final int BUTTON_7 = 7;

@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoDriveForward extends Command {
 	long startTime = 0;
-	boolean rDone, lDone, rotationComplete, inMotion, finalBackupDone, nothingDetected;
+	boolean rDone, lDone, rotationComplete, inMotion, finalBackupDone, nothingDetected, gyroTurn;
 	double desiredSpot = 0;
 
 	public AutoDriveForward() {
@@ -22,6 +22,7 @@ public class AutoDriveForward extends Command {
 		rotationComplete= false;
 		lDone = rDone = false;
 		inMotion = false;
+		gyroTurn = false;
 		finalBackupDone = false;
 		nothingDetected = false;
 		desiredSpot = RobotUtils.getEncPositionFromIN(RobotUtils.distanceMinusRobot(88));
@@ -37,23 +38,52 @@ public class AutoDriveForward extends Command {
 		SmartDashboard.putNumber("left position", Robot.oi.left.getPosition());
 		SmartDashboard.putNumber("right position ",Robot.oi.right.getPosition());
 
-		System.out.println("left position: "+Robot.oi.left.getPosition());
-		System.out.println("right position: "+Robot.oi.right.getPosition());
+//		System.out.println("left position: " + Robot.oi.left.getPosition());
+//		System.out.println("right position: " + Robot.oi.right.getPosition());
 
 		SmartDashboard.putNumber("Auto Elapsed", elapsed);
-		SmartDashboard.putNumber("Gyro angle", angle);
+//		System.out.println("Auto Elapse "+angle);
+		SmartDashboard.putNumber("Gyro angle", angle); 
 		if (!lDone || !rDone) {
 			if(Robot.oi.right.getPosition()<=-desiredSpot){
 				Robot.oi.right.setPosition(0);
 				Robot.oi.right.set(0);
 				rDone = true;
+				RobotMap.TAKE_PIC = true;
+				System.out.println("RDONE");
 			}
 			if(Robot.oi.left.getPosition()>=desiredSpot){
 				Robot.oi.left.setPosition(0);
 				Robot.oi.left.set(0);
 				lDone = true;
+				RobotMap.TAKE_PIC = true;
+				System.out.println("LDONE");
 			}
 		}
+		
+//		if(rDone && lDone && !rotationComplete && !gyroTurn){
+//			Robot.drive.setForSpeed();
+//			if(angle>5){
+//				Robot.oi.right.set (-20);
+//			}
+//			else if(angle<-5){
+//				Robot.oi.left.set(20);
+//			}
+//			else{
+//				gyroTurn = true;
+//				setSpeed(0);
+//			}
+//		}
+		
+		if(rDone && lDone && !rotationComplete /*&& gyroTurn*/){
+			Robot.drive.setForSpeed();
+			rotationComplete= adjustRotation();
+			if(!rotationComplete)
+			{
+				System.out.println("Adjusting...");
+			}
+		}
+		
 		if(rotationComplete && !inMotion && nothingDetected == false){
 			Robot.drive.setForPosition();
 			Robot.drive.setPeakOutputVoltage(3);
@@ -69,15 +99,6 @@ public class AutoDriveForward extends Command {
 			Robot.oi.left.set(5);
 			Robot.oi.right.set(-5);
 			inMotion = true;
-		}
-
-		if(rDone && lDone && !rotationComplete){
-			Robot.drive.setForSpeed();
-			rotationComplete= adjustRotation();
-			if(!rotationComplete)
-			{
-				System.out.println("Adjusting...");
-			}
 		}
 		
 //		if (inMotion) {

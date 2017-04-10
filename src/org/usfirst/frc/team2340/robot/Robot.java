@@ -94,9 +94,9 @@ public class Robot extends IterativeRobot {
 				}
 				if ( lastTargets != targets.size()) { 
 					lastTargets = targets.size();
-					if(!isOperatorControl()){
+//					if(!isOperatorControl()){
 						System.out.println(System.currentTimeMillis() + " num targets: " + lastTargets);
-					}
+//					}
 				}
 				if(targets.size() == 2){
 					Rect r = Imgproc.boundingRect(grip.filterContoursOutput().get(0));
@@ -126,11 +126,11 @@ public class Robot extends IterativeRobot {
 						if ( distanceFromTarget >= 0 ) {
 							Robot.drive.finalDistance = distanceFromTarget;
 						}
-						if(!isOperatorControl()){
+//						if(!isOperatorControl()){
 							System.out.println(System.currentTimeMillis() + " r.x: "+r.x+", r.width: "+r.width
 									+", q.x: "+q.x+", q.width: "+q.width
 									+", centerX: "+Robot.drive.centerX + ", distance: "+distanceFromTarget);
-						}
+//						}
 						//System.out.println("leftmost: " + leftmost + " rightmost: " + rightmost);
 					}
 				} else {

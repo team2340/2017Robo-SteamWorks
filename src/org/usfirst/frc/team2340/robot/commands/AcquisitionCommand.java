@@ -33,11 +33,11 @@ public class AcquisitionCommand extends Command {
 	protected void execute() {
 		//SmartDashboard.putNumber("shooter position", Robot.oi.left.getPosition());
 		//SmartDashboard.putNumber("climber position ",Robot.oi.climbing.getPosition());
-		if (controller.getRawButton(RobotMap.BUTTON_6)){
-			Robot.oi.gearAcquisition.set(.15);
+		if (controller.getRawButton(RobotMap.BUTTON_4)){
+			Robot.oi.gearAcquisition.set(.1);
 		}
 		else{
-			Robot.oi.gearAcquisition.set(-.15);
+			Robot.oi.gearAcquisition.set(-.1);
 			
 		}
 		
@@ -58,7 +58,7 @@ public class AcquisitionCommand extends Command {
 				currentTime = System.currentTimeMillis();
 			}
 			
-			Robot.oi.ballShooter.set(0.74/*controller.getZ()*/);
+			Robot.oi.ballShooter.set(0.85/*controller.getZ()*/);
 			
 			if(currentTime <= System.currentTimeMillis() - 3000) {
 				Robot.oi.ballFeeder.set(-1);
@@ -72,6 +72,9 @@ public class AcquisitionCommand extends Command {
 		
 		if(controller.getRawButton(RobotMap.BUTTON_5)){
 			Robot.oi.climbing.set(1);
+		}
+		else if(controller.getRawButton(RobotMap.BUTTON_7)){
+			Robot.oi.climbing.set(-1);
 		}
 		else{
 			Robot.oi.climbing.set(0);
